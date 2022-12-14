@@ -24,6 +24,7 @@ export default class NewTaskForm extends Component {
     e.preventDefault();
     this.props.addTask(this.state.description);
     this.setState({ description: '' });
+    console.log('asd');
   };
 
   render() {
