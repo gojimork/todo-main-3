@@ -21,6 +21,7 @@ export default class NewTaskForm extends Component {
   };
 
   onAddSubmit = (e) => {
+    let f = 30;
     e.preventDefault();
     this.props.addTask(this.state.description);
     this.setState({ description: '' });
