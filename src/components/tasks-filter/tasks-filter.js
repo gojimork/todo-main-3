@@ -7,7 +7,7 @@ const TasksFilter = ({ showActiveTasks, showAllTasks, showCompletedTasks, filter
 
   if (filter === 'All') allButtonClass = 'selected';
   if (filter === 'Active') activeButtonClass = 'selected';
-  if (filter === 'Complete') completeButtonClass = 'selected';
+  if (filter === 'Completed') completeButtonClass = 'selected';
 
   return (
     <ul className="filters">
