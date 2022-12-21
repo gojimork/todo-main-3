@@ -7,6 +7,8 @@ import './app.css';
 export default class App extends Component {
   maxCount = 100;
 
+  filter = 'All';
+
   state = {
     todoData: [
       {
@@ -37,6 +39,7 @@ export default class App extends Component {
       });
       return { todoData: newTodoData };
     });
+    this.filter = 'Completed';
   };
 
   showAllTasks = () => {
@@ -47,6 +50,7 @@ export default class App extends Component {
       });
       return { todoData: newTodoData };
     });
+    this.filter = 'All';
   };
 
   showActiveTasks = () => {
@@ -58,6 +62,7 @@ export default class App extends Component {
       });
       return { todoData: newTodoData };
     });
+    this.filter = 'Active';
   };
 
   addTask = (description) => {
@@ -106,6 +111,8 @@ export default class App extends Component {
         todoData: newTodoData,
       };
     });
+    if (this.filter === 'Completed') this.showCompletedTasks();
+    if (this.filter === 'Active') this.showActiveTasks();
   };
 
   render() {
