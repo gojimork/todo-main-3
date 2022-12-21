@@ -137,6 +137,7 @@ export default class App extends Component {
             showCompletedTasks={this.showCompletedTasks}
             clearCompleted={this.clearCompleted}
             activeTasksCount={activeTasksCount}
+            filter={this.filter}
           />
         </section>
       </section>

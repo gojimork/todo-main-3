@@ -1,13 +1,14 @@
 import TasksFilter from '../tasks-filter';
 import PropTypes from 'prop-types';
 
-const Footer = ({ showActiveTasks, showAllTasks, showCompletedTasks, clearCompleted, activeTasksCount }) => (
+const Footer = ({ showActiveTasks, showAllTasks, showCompletedTasks, clearCompleted, activeTasksCount, filter }) => (
   <footer className="footer">
     <span className="todo-count">{activeTasksCount} items left</span>
     <TasksFilter
       showActiveTasks={showActiveTasks}
       showAllTasks={showAllTasks}
       showCompletedTasks={showCompletedTasks}
+      filter={filter}
     />
     <button type="button" className="clear-completed" onClick={clearCompleted}>
       Clear completed
