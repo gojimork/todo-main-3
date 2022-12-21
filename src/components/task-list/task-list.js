@@ -1,7 +1,7 @@
 import Task from '../task';
 import PropTypes from 'prop-types';
 
-const TaskList = ({ todoData, onCompleted, onDeleted }) => {
+const TaskList = ({ todoData, onCompleted, onDeleted, onEdited, onEditingSubmit }) => {
   const tasks = todoData.map((task) => (
     <li key={task.id} className={task.className}>
       <Task
@@ -10,6 +10,8 @@ const TaskList = ({ todoData, onCompleted, onDeleted }) => {
         timeStamp={task.timeStamp}
         onCompleted={() => onCompleted(task.id)}
         onDeleted={() => onDeleted(task.id)}
+        onEdited={() => onEdited(task.id)}
+        onEditingSubmit={onEditingSubmit}
       />
     </li>
   ));

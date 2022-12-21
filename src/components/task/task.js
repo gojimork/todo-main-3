@@ -1,7 +1,8 @@
+import EditTaskForm from '../edit-task-form';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
-function Task({ description, timeStamp, onCompleted, onDeleted }) {
+function Task({ id, description, timeStamp, onCompleted, onDeleted, onEdited, onEditingSubmit }) {
   return (
     <div>
       <div className="view">
@@ -10,10 +11,10 @@ function Task({ description, timeStamp, onCompleted, onDeleted }) {
           <span className="description">{description}</span>
           <span className="created">{formatDistanceToNow(timeStamp, { addSuffix: true })}</span>
         </label>
-        <button type="button" className="icon icon-edit" />
+        <button type="button" className="icon icon-edit" onClick={onEdited} />
         <button type="button" className="icon icon-destroy" onClick={onDeleted} />
       </div>
-      <input type="text" className="edit" defaultValue="Editing task" />
+      <EditTaskForm description={description} onEditingSubmit={onEditingSubmit} id={id} />
     </div>
   );
 }
