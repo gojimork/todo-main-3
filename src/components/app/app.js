@@ -8,62 +8,35 @@ import './app.css';
 export default class App extends Component {
   state = {
     todoData: [
+      { id: uuidv4(), completed: true, description: 'Completed task', timeStamp: Date.parse('June 16 1993') },
       {
-        className: 'completed',
-        description: 'Completed task',
         id: uuidv4(),
-        show: true,
-        timeStamp: Date.parse('June 16 1993'),
-      },
-      {
-        className: 'editing',
         description: 'Editing task',
-        id: uuidv4(),
-        show: true,
+        completed: false,
         timeStamp: Date.parse('June 16 1999'),
       },
-      { className: '', description: 'Active task', id: uuidv4(), show: true, timeStamp: Date.parse('June 16 2010') },
+      { id: uuidv4(), description: 'Active task', timeStamp: Date.parse('June 16 2010') },
     ],
     filter: 'All',
   };
 
   clearCompleted = () => {
     this.setState(({ todoData }) => {
-      const newTodoData = [...todoData].filter((task) => task.className.indexOf('completed') === -1);
+      const newTodoData = [...todoData].filter((task) => !task.completed);
       return { todoData: newTodoData };
     });
   };
 
   showCompletedTasks = () => {
-    this.setState(({ todoData }) => {
-      const newTodoData = [...todoData].map((task) => {
-        task.className = task.className.replace('hidden', '');
-        if (task.className.indexOf('completed') === -1) task.className += ' hidden';
-        return task;
-      });
-      return { todoData: newTodoData, filter: 'Completed' };
-    });
+    this.setState({ filter: 'Completed' });
   };
 
   showAllTasks = () => {
-    this.setState(({ todoData }) => {
-      const newTodoData = [...todoData].map((task) => {
-        task.className = task.className.replace('hidden', '');
-        return task;
-      });
-      return { todoData: newTodoData, filter: 'All' };
-    });
+    this.setState({ filter: 'All' });
   };
 
   showActiveTasks = () => {
-    this.setState(({ todoData }) => {
-      const newTodoData = [...todoData].map((task) => {
-        task.className = task.className.replace('hidden', '');
-        if (task.className.indexOf('completed') > -1) task.className += ' hidden';
-        return task;
-      });
-      return { todoData: newTodoData, filter: 'Active' };
-    });
+    this.setState({ filter: 'Active' });
   };
 
   addTask = (description) => {
@@ -102,23 +75,23 @@ export default class App extends Component {
   };
 
   completeTask = (id) => {
+    const { filter } = this.state;
     this.setState(({ todoData }) => {
-      const completedTaskIndex = todoData.findIndex((task) => task.id === id);
-      const newTodoData = [...todoData];
-      newTodoData[completedTaskIndex].className
-        ? (newTodoData[completedTaskIndex].className = '')
-        : (newTodoData[completedTaskIndex].className = 'completed');
+      const newTodoData = [...todoData].map((task) => {
+        if (task.id === id) task.completed = !task.completed;
+        return task;
+      });
       return {
         todoData: newTodoData,
       };
     });
-    if (this.filter === 'Completed') this.showCompletedTasks();
-    if (this.filter === 'Active') this.showActiveTasks();
+    if (filter === 'Completed') this.showCompletedTasks();
+    if (filter === 'Active') this.showActiveTasks();
   };
 
   render() {
-    const activeTasksCount = this.state.todoData.filter((task) => task.className.indexOf('completed') === -1).length;
     const { todoData, filter } = this.state;
+    const activeTasksCount = todoData.filter((task) => !task.completed).length;
 
     return (
       <section className="todoapp">
@@ -133,6 +106,7 @@ export default class App extends Component {
             onDeleted={this.deleteTask}
             onEdited={this.editTask}
             onEditingSubmit={this.onEditingSubmit}
+            filter={filter}
           />
           <Footer
             showActiveTasks={this.showActiveTasks}

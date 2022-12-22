@@ -1,9 +1,17 @@
 import Task from '../task';
 import PropTypes from 'prop-types';
 
-const TaskList = ({ todoData, onCompleted, onDeleted, onEdited, onEditingSubmit }) => {
-  const tasks = todoData.map((task) => (
-    <li key={task.id} className={task.className}>
+const TaskList = ({ todoData, onCompleted, onDeleted, onEdited, onEditingSubmit, filter }) => {
+  let todoDataAfterFilter;
+  if (filter === 'All') {
+    todoDataAfterFilter = [...todoData];
+  } else if (filter === 'Active') {
+    todoDataAfterFilter = [...todoData].filter((task) => !task.completed);
+  } else if (filter === 'Completed') {
+    todoDataAfterFilter = [...todoData].filter((task) => task.completed);
+  }
+  const tasks = todoDataAfterFilter.map((task) => (
+    <li key={task.id} className={task.completed ? 'completed' : ''}>
       <Task
         id={task.id}
         description={task.description}
