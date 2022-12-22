@@ -2,25 +2,29 @@ import TaskList from '../task-list';
 import NewTaskForm from '../new-task-form';
 import Footer from '../footer';
 import { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './app.css';
 
 export default class App extends Component {
-  maxCount = 100;
-
-  filter = 'All';
-
   state = {
     todoData: [
       {
         className: 'completed',
         description: 'Completed task',
-        id: 1,
+        id: uuidv4(),
         show: true,
         timeStamp: Date.parse('June 16 1993'),
       },
-      { className: 'editing', description: 'Editing task', id: 2, show: true, timeStamp: Date.parse('June 16 1999') },
-      { className: '', description: 'Active task', id: 3, show: true, timeStamp: Date.parse('June 16 2010') },
+      {
+        className: 'editing',
+        description: 'Editing task',
+        id: uuidv4(),
+        show: true,
+        timeStamp: Date.parse('June 16 1999'),
+      },
+      { className: '', description: 'Active task', id: uuidv4(), show: true, timeStamp: Date.parse('June 16 2010') },
     ],
+    filter: 'All',
   };
 
   clearCompleted = () => {
@@ -37,9 +41,8 @@ export default class App extends Component {
         if (task.className.indexOf('completed') === -1) task.className += ' hidden';
         return task;
       });
-      return { todoData: newTodoData };
+      return { todoData: newTodoData, filter: 'Completed' };
     });
-    this.filter = 'Completed';
   };
 
   showAllTasks = () => {
@@ -48,9 +51,8 @@ export default class App extends Component {
         task.className = task.className.replace('hidden', '');
         return task;
       });
-      return { todoData: newTodoData };
+      return { todoData: newTodoData, filter: 'All' };
     });
-    this.filter = 'All';
   };
 
   showActiveTasks = () => {
@@ -60,13 +62,12 @@ export default class App extends Component {
         if (task.className.indexOf('completed') > -1) task.className += ' hidden';
         return task;
       });
-      return { todoData: newTodoData };
+      return { todoData: newTodoData, filter: 'Active' };
     });
-    this.filter = 'Active';
   };
 
   addTask = (description) => {
-    const newTask = { className: '', description, id: this.maxCount++, timeStamp: Date.now() };
+    const newTask = { className: '', description, id: uuidv4(), timeStamp: Date.now() };
     this.setState(({ todoData }) => ({ todoData: [newTask, ...todoData] }));
   };
 
@@ -117,6 +118,8 @@ export default class App extends Component {
 
   render() {
     const activeTasksCount = this.state.todoData.filter((task) => task.className.indexOf('completed') === -1).length;
+    const { todoData, filter } = this.state;
+
     return (
       <section className="todoapp">
         <header className="header">
@@ -125,7 +128,7 @@ export default class App extends Component {
         </header>
         <section className="main">
           <TaskList
-            todoData={this.state.todoData}
+            todoData={todoData}
             onCompleted={this.completeTask}
             onDeleted={this.deleteTask}
             onEdited={this.editTask}
@@ -137,7 +140,7 @@ export default class App extends Component {
             showCompletedTasks={this.showCompletedTasks}
             clearCompleted={this.clearCompleted}
             activeTasksCount={activeTasksCount}
-            filter={this.filter}
+            filter={filter}
           />
         </section>
       </section>
