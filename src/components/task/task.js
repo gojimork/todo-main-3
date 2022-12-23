@@ -24,12 +24,22 @@ export default class Task extends Component {
     this.setState({ edit: true });
   };
 
+  hiddenEditTaskForm = () => {
+    this.setState({ edit: false });
+  };
+
   render() {
     const { id, description, timeStamp, onCompleted, onDeleted, onEditingSubmit } = this.props;
     const { edit } = this.state;
-    console.log(edit);
     if (edit) {
-      return <EditTaskForm description={description} onEditingSubmit={onEditingSubmit} id={id} />;
+      return (
+        <EditTaskForm
+          description={description}
+          onEditingSubmit={onEditingSubmit}
+          id={id}
+          hiddenEditTaskForm={this.hiddenEditTaskForm}
+        />
+      );
     }
     return (
       <div className="view">

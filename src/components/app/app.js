@@ -58,7 +58,6 @@ export default class App extends Component {
       const editedTaskIndex = todoData.findIndex((task) => task.id === id);
       const newTodoData = [...todoData];
       newTodoData[editedTaskIndex].description = description;
-      newTodoData[editedTaskIndex].className = newTodoData[editedTaskIndex].className.replace('editing', '');
       return {
         todoData: newTodoData,
       };

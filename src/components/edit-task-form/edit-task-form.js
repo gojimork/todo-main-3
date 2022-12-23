@@ -12,8 +12,11 @@ export default class EditTaskForm extends Component {
   };
 
   onSubmit = (e) => {
+    const { onEditingSubmit, hiddenEditTaskForm, id } = this.props;
+    const { description } = this.state;
     e.preventDefault();
-    this.props.onEditingSubmit(this.props.id, this.state.description);
+    onEditingSubmit(id, description);
+    hiddenEditTaskForm();
   };
 
   render() {
