@@ -1,6 +1,21 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class EditTaskForm extends Component {
+  static defaultProps = {
+    description: '',
+    onEditingSubmit: () => {},
+    id: '',
+    hiddenEditTaskForm: () => {},
+  };
+
+  static propTypes = {
+    id: PropTypes.string,
+    description: PropTypes.string,
+    hiddenEditTaskForm: PropTypes.func,
+    onEditingSubmit: PropTypes.func,
+  };
+
   state = {
     description: this.props.description,
   };

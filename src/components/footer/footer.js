@@ -22,6 +22,7 @@ Footer.defaultProps = {
   showCompletedTasks: () => {},
   clearCompleted: () => {},
   activeTasksCount: '',
+  filter: 'All',
 };
 
 Footer.propTypes = {
@@ -30,6 +31,7 @@ Footer.propTypes = {
   showCompletedTasks: PropTypes.func,
   clearCompleted: PropTypes.func,
   activeTasksCount: PropTypes.number,
+  filter: PropTypes.string,
 };
 
 export default Footer;

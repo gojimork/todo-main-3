@@ -29,12 +29,16 @@ TaskList.defaultProps = {
   todoData: [],
   onCompleted: () => {},
   onDeleted: () => {},
+  onEditingSubmit: () => {},
+  filter: 'All',
 };
 
 TaskList.propTypes = {
   todoData: PropTypes.arrayOf(PropTypes.shape),
   onCompleted: PropTypes.func,
   onDeleted: PropTypes.func,
+  onEditingSubmit: PropTypes.func,
+  filter: PropTypes.string,
 };
 
 export default TaskList;

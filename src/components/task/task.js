@@ -5,17 +5,21 @@ import PropTypes from 'prop-types';
 
 export default class Task extends Component {
   static defaultProps = {
+    id: '',
     description: '',
     timeStamp: '',
     onCompleted: () => {},
     onDeleted: () => {},
+    onEditingSubmit: () => {},
   };
 
   static propTypes = {
+    id: PropTypes.string,
     description: PropTypes.string,
     timeStamp: PropTypes.number,
     onCompleted: PropTypes.func,
     onDeleted: PropTypes.func,
+    onEditingSubmit: PropTypes.func,
   };
 
   state = { edit: false };
@@ -43,7 +47,7 @@ export default class Task extends Component {
     }
     return (
       <div className="view">
-        <input className="toggle" type="checkbox" />
+        <input className="toggle" type="checkbox" onClick={onCompleted} />
         <label onClick={onCompleted}>
           <span className="description">{description}</span>
           <span className="created">{formatDistanceToNow(timeStamp, { addSuffix: true })}</span>

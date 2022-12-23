@@ -8,7 +8,7 @@ import './app.css';
 export default class App extends Component {
   state = {
     todoData: [
-      { id: uuidv4(), completed: true, description: 'Completed task', timeStamp: Date.parse('June 16 1993') },
+      { id: uuidv4(), completed: false, description: 'Completed task', timeStamp: Date.parse('June 16 1993') },
       {
         id: uuidv4(),
         description: 'Editing task',
