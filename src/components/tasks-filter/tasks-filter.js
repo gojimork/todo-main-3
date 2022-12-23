@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 const TasksFilter = ({ showActiveTasks, showAllTasks, showCompletedTasks, filter }) => {
   let allButtonClass = '';
@@ -32,7 +33,7 @@ const TasksFilter = ({ showActiveTasks, showAllTasks, showCompletedTasks, filter
   ];
 
   const filterArr = btnProps.map(({ onClick, child, className }) => (
-    <li>
+    <li key={uuidv4()}>
       <button className={className} onClick={onClick} type="button">
         {child}
       </button>
