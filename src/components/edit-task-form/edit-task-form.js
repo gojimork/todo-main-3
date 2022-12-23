@@ -18,7 +18,7 @@ export default class EditTaskForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="editing" onSubmit={this.onSubmit}>
         <input type="text" className="edit" defaultValue={this.props.description} onChange={this.onEditChange} />
       </form>
     );

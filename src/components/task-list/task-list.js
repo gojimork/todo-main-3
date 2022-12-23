@@ -1,7 +1,7 @@
 import Task from '../task';
 import PropTypes from 'prop-types';
 
-const TaskList = ({ todoData, onCompleted, onDeleted, onEdited, onEditingSubmit, filter }) => {
+const TaskList = ({ todoData, onCompleted, onDeleted, onEditingSubmit, filter }) => {
   let todoDataAfterFilter;
   if (filter === 'All') {
     todoDataAfterFilter = [...todoData];
@@ -18,7 +18,6 @@ const TaskList = ({ todoData, onCompleted, onDeleted, onEdited, onEditingSubmit,
         timeStamp={task.timeStamp}
         onCompleted={() => onCompleted(task.id)}
         onDeleted={() => onDeleted(task.id)}
-        onEdited={() => onEdited(task.id)}
         onEditingSubmit={onEditingSubmit}
       />
     </li>

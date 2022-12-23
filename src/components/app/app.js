@@ -53,15 +53,6 @@ export default class App extends Component {
     });
   };
 
-  editTask = (id) => {
-    this.setState(({ todoData }) => {
-      const editedTaskIndex = todoData.findIndex((task) => task.id === id);
-      const newTodoData = [...todoData];
-      newTodoData[editedTaskIndex].className += ' editing';
-      return { todoData: newTodoData };
-    });
-  };
-
   onEditingSubmit = (id, description) => {
     this.setState(({ todoData }) => {
       const editedTaskIndex = todoData.findIndex((task) => task.id === id);
@@ -104,7 +95,6 @@ export default class App extends Component {
             todoData={todoData}
             onCompleted={this.completeTask}
             onDeleted={this.deleteTask}
-            onEdited={this.editTask}
             onEditingSubmit={this.onEditingSubmit}
             filter={filter}
           />
