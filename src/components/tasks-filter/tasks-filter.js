@@ -13,25 +13,33 @@ const TasksFilter = ({ showActiveTasks, showAllTasks, showCompletedTasks, filter
     completeButtonClass = 'selected';
   }
 
-  return (
-    <ul className="filters">
-      <li>
-        <button className={allButtonClass} type="button" onClick={showAllTasks}>
-          All
-        </button>
-      </li>
-      <li>
-        <button className={activeButtonClass} type="button" onClick={showActiveTasks}>
-          Active
-        </button>
-      </li>
-      <li>
-        <button className={completeButtonClass} type="button" onClick={showCompletedTasks}>
-          Completed
-        </button>
-      </li>
-    </ul>
-  );
+  const btnProps = [
+    {
+      onClick: showAllTasks,
+      child: 'All',
+      className: allButtonClass,
+    },
+    {
+      onClick: showActiveTasks,
+      child: 'Active',
+      className: activeButtonClass,
+    },
+    {
+      onClick: showCompletedTasks,
+      child: 'Completed',
+      className: completeButtonClass,
+    },
+  ];
+
+  const filterArr = btnProps.map(({ onClick, child, className }) => (
+    <li>
+      <button className={className} onClick={onClick} type="button">
+        {child}
+      </button>
+    </li>
+  ));
+
+  return <ul className="filters">{filterArr}</ul>;
 };
 
 TasksFilter.defaultProps = {
