@@ -38,6 +38,7 @@ module.exports = {
     'class-methods-use-this': 'warn',
     'react/no-unused-state': 'warn',
     'react/no-unused-class-component-methods': 'warn',
+    'no-unused-vars': 'warn',
     indent: ['error', 2],
     'prettier/prettier': 'error',
     'linebreak-style': [0, 'unix'],

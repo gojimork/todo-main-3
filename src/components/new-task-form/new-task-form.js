@@ -22,8 +22,10 @@ export default class NewTaskForm extends Component {
 
   onAddSubmit = (e) => {
     e.preventDefault();
-    this.props.addTask(this.state.description);
-    this.setState({ description: '' });
+    if (this.state.description) {
+      this.props.addTask(this.state.description);
+      this.setState({ description: '' });
+    }
   };
 
   render() {

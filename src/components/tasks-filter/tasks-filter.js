@@ -1,33 +1,46 @@
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 const TasksFilter = ({ showActiveTasks, showAllTasks, showCompletedTasks, filter }) => {
   let allButtonClass = '';
   let activeButtonClass = '';
   let completeButtonClass = '';
 
-  if (filter === 'All') allButtonClass = 'selected';
-  if (filter === 'Active') activeButtonClass = 'selected';
-  if (filter === 'Completed') completeButtonClass = 'selected';
+  if (filter === 'All') {
+    allButtonClass = 'selected';
+  } else if (filter === 'Active') {
+    activeButtonClass = 'selected';
+  } else if (filter === 'Completed') {
+    completeButtonClass = 'selected';
+  }
 
-  return (
-    <ul className="filters">
-      <li>
-        <button className={allButtonClass} type="button" onClick={showAllTasks}>
-          All
-        </button>
-      </li>
-      <li>
-        <button className={activeButtonClass} type="button" onClick={showActiveTasks}>
-          Active
-        </button>
-      </li>
-      <li>
-        <button className={completeButtonClass} type="button" onClick={showCompletedTasks}>
-          Completed
-        </button>
-      </li>
-    </ul>
-  );
+  const btnProps = [
+    {
+      onClick: showAllTasks,
+      child: 'All',
+      className: allButtonClass,
+    },
+    {
+      onClick: showActiveTasks,
+      child: 'Active',
+      className: activeButtonClass,
+    },
+    {
+      onClick: showCompletedTasks,
+      child: 'Completed',
+      className: completeButtonClass,
+    },
+  ];
+
+  const filterArr = btnProps.map(({ onClick, child, className }) => (
+    <li key={uuidv4()}>
+      <button className={className} onClick={onClick} type="button">
+        {child}
+      </button>
+    </li>
+  ));
+
+  return <ul className="filters">{filterArr}</ul>;
 };
 
 TasksFilter.defaultProps = {
