@@ -1,4 +1,5 @@
 import EditTaskForm from '../edit-task-form';
+import Timer from '../timer/timer';
 import { Component } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -48,8 +49,9 @@ export default class Task extends Component {
     return (
       <div className="view">
         <input className="toggle" type="checkbox" onClick={onCompleted} />
-        <label onClick={onCompleted}>
+        <label>
           <span className="description">{description}</span>
+          <Timer />
           <span className="created">{formatDistanceToNow(timeStamp, { addSuffix: true })}</span>
         </label>
         <button type="button" className="icon icon-edit" onClick={this.onEditedClick} />

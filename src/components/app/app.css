@@ -249,6 +249,7 @@ body {
   margin: auto 0 11px;
   transition: color 0.2s ease-out;
   cursor: pointer;
+  border: 1px solid red;
 }
 
 .todo-list li .icon:hover {
@@ -256,6 +257,7 @@ body {
 }
 
 .todo-list li .icon-destroy {
+  font-size: 30px;
   right: 10px;
 }
 
@@ -264,7 +266,7 @@ body {
 }
 
 .todo-list li .icon-edit {
-  font-size: 19px;
+  font-size: 25px;
   right: 45px;
 }
 
@@ -272,9 +274,24 @@ body {
   content: '✎';
 }
 
-/* .todo-list li .edit {
-  display: none;
-} */
+.todo-list li .icon-pause,
+.todo-list li .icon-play {
+  font-size: 18px;
+  right: 250px;
+  width: 18px;
+}
+
+.todo-list li .icon-play {
+  font-size: 15px;
+}
+
+.icon-pause:after {
+  content: '⏸';
+}
+
+.icon-play:after {
+  content: '▶';
+}
 
 .todo-list li.editing:last-child {
   margin-bottom: -1px;
@@ -381,6 +398,25 @@ html .clear-completed:active {
 .info a:hover {
   text-decoration: underline;
 }
+
+/* .todo-list li .icon-pause,
+.todo-list li .icon-play {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.todo-list li .icon-play {
+  font-size: 15px;
+}
+
+.icon-pause:after {
+  content: '⏸';
+}
+
+.icon-play:after {
+  content: '▶';
+} */
 
 /*
 	Hack to remove background from Mobile Safari.

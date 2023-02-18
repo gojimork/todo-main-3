@@ -9,13 +9,13 @@ export default class App extends Component {
   state = {
     todoData: [
       { id: uuidv4(), completed: false, description: 'Completed task', timeStamp: Date.parse('June 16 1993') },
-      {
-        id: uuidv4(),
-        description: 'Editing task',
-        completed: false,
-        timeStamp: Date.parse('June 16 1999'),
-      },
-      { id: uuidv4(), description: 'Active task', timeStamp: Date.parse('June 16 2010') },
+      // {
+      //   id: uuidv4(),
+      //   completed: false,
+      //   description: 'Editing task',
+      //   timeStamp: Date.parse('June 16 1999'),
+      // },
+      // { id: uuidv4(), completed: false, description: 'Active task', timeStamp: Date.parse('June 16 2010') },
     ],
     filter: 'All',
   };
