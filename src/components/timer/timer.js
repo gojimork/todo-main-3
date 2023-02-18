@@ -1,15 +1,15 @@
 import { Component } from 'react';
 
 export default class Timer extends Component {
-  state = { timeLeft: 3, timer: null, timerStarted: false };
+  state = { secondsLeft: 12, timer: null, timerStarted: false };
 
   timerStart = () => {
     this.setState({ timerStarted: true });
     const timer = setInterval(() => {
-      this.setState(({ timeLeft }) => {
-        const newTimeLeft = timeLeft - 1;
-        if (newTimeLeft === 0) clearInterval(timer);
-        return { timeLeft: newTimeLeft };
+      this.setState(({ secondsLeft }) => {
+        const newsecondsLeft = secondsLeft - 1;
+        if (newsecondsLeft === 0) clearInterval(timer);
+        return { secondsLeft: newsecondsLeft };
       });
     }, 1000);
     this.setState({ timer });
@@ -21,14 +21,16 @@ export default class Timer extends Component {
   };
 
   render() {
-    const { timeLeft, timerStarted } = this.state;
+    const { secondsLeft, timerStarted } = this.state;
     const play = <button type="button" className="icon-play" onClick={this.timerStart} />;
     const pause = <button type="button" className="icon-pause" onClick={this.timerPause} />;
     const button = timerStarted ? pause : play;
+    const buttonVeiw = secondsLeft ? button : null;
+    const seconds = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
     return (
       <div>
-        {button}
-        <span>00:{timeLeft}</span>
+        {buttonVeiw}
+        <span>00:{seconds}</span>
       </div>
     );
   }
