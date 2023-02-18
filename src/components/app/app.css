@@ -249,7 +249,6 @@ body {
   margin: auto 0 11px;
   transition: color 0.2s ease-out;
   cursor: pointer;
-  border: 1px solid red;
 }
 
 .todo-list li .icon:hover {
