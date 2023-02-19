@@ -34,7 +34,7 @@ export default class Task extends Component {
   };
 
   render() {
-    const { id, description, timeStamp, onCompleted, onDeleted, onEditingSubmit } = this.props;
+    const { id, description, minutes, seconds, timeStamp, onCompleted, onDeleted, onEditingSubmit } = this.props;
     const { edit } = this.state;
     if (edit) {
       return (
@@ -51,7 +51,7 @@ export default class Task extends Component {
         <input className="toggle" type="checkbox" onClick={onCompleted} />
         <label>
           <span className="description">{description}</span>
-          <Timer />
+          <Timer seconds={seconds} minutes={minutes} />
           <span className="created">{formatDistanceToNow(timeStamp, { addSuffix: true })}</span>
         </label>
         <button type="button" className="icon icon-edit" onClick={this.onEditedClick} />

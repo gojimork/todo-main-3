@@ -1,14 +1,13 @@
 import { Component } from 'react';
 
 export default class Timer extends Component {
-  state = { secondsLeft: 1, minutesLeft: 1, timer: null, timerStarted: false };
+  state = { secondsLeft: this.props.seconds, minutesLeft: this.props.minutes, timer: null, timerStarted: false };
 
   timerStart = () => {
     this.setState({ timerStarted: true });
     const timer = setInterval(() => {
       this.setState(({ secondsLeft, minutesLeft }) => {
         const newSecondsLeft = secondsLeft - 1;
-
         if (newSecondsLeft === 0 && minutesLeft === 0) {
           clearInterval(timer);
         } else if (newSecondsLeft === -1 && minutesLeft > 0) {

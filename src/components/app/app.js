@@ -8,7 +8,14 @@ import './app.css';
 export default class App extends Component {
   state = {
     todoData: [
-      { id: uuidv4(), completed: false, description: 'Completed task', timeStamp: Date.parse('June 16 1993') },
+      {
+        id: uuidv4(),
+        completed: false,
+        description: 'Completed task',
+        minutes: 3,
+        seconds: 10,
+        timeStamp: Date.parse('June 16 1993'),
+      },
       // {
       //   id: uuidv4(),
       //   completed: false,
@@ -39,8 +46,8 @@ export default class App extends Component {
     this.setState({ filter: 'Active' });
   };
 
-  addTask = (description) => {
-    const newTask = { className: '', description, id: uuidv4(), timeStamp: Date.now() };
+  addTask = (description, minutes, seconds) => {
+    const newTask = { className: '', description, minutes, seconds, id: uuidv4(), timeStamp: Date.now() };
     this.setState(({ todoData }) => ({ todoData: [newTask, ...todoData] }));
   };
 

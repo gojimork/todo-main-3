@@ -15,6 +15,8 @@ const TaskList = ({ todoData, onCompleted, onDeleted, onEditingSubmit, filter })
       <Task
         id={task.id}
         description={task.description}
+        minutes={task.minutes}
+        seconds={task.seconds}
         timeStamp={task.timeStamp}
         onCompleted={() => onCompleted(task.id)}
         onDeleted={() => onDeleted(task.id)}
