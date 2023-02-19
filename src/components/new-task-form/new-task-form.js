@@ -53,10 +53,22 @@ export default class NewTaskForm extends Component {
             <input className="new-todo" placeholder="Task" onChange={this.onDescriptionChange} value={description} />
           </li>
           <li>
-            <input className="new-todo" placeholder="Min" onChange={this.onMinutesChange} value={minutes} />
+            <input
+              className="new-todo"
+              type="number"
+              placeholder="Min"
+              onChange={this.onMinutesChange}
+              value={minutes}
+            />
           </li>
           <li>
-            <input className="new-todo" placeholder="Sec" onChange={this.onSecondsChange} value={seconds} />
+            <input
+              className="new-todo"
+              type="number"
+              placeholder="Sec"
+              onChange={this.onSecondsChange}
+              value={seconds}
+            />
           </li>
         </ul>
         <button type="submit" />
