@@ -8,7 +8,7 @@ export default class Timer extends Component {
     const timer = setInterval(() => {
       this.setState(({ secondsLeft, minutesLeft }) => {
         const newSecondsLeft = secondsLeft - 1;
-        if (newSecondsLeft === 0 && minutesLeft === 0) {
+        if (!newSecondsLeft && !minutesLeft) {
           clearInterval(timer);
         } else if (newSecondsLeft === -1 && minutesLeft > 0) {
           const newMinutesLeft = minutesLeft - 1;
