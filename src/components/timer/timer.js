@@ -3,23 +3,25 @@ import { Component } from 'react';
 export default class Timer extends Component {
   state = { secondsLeft: this.props.seconds, minutesLeft: this.props.minutes, timer: null, timerStarted: false };
 
+  changeTimerValue = (timer) => {
+    this.setState(({ secondsLeft, minutesLeft }) => {
+      const newSecondsLeft = secondsLeft - 1;
+      if (!newSecondsLeft && !minutesLeft) {
+        clearInterval(timer);
+      } else if (newSecondsLeft === -1 && minutesLeft > 0) {
+        const newMinutesLeft = minutesLeft - 1;
+        return {
+          secondsLeft: 59,
+          minutesLeft: newMinutesLeft,
+        };
+      }
+      return { secondsLeft: newSecondsLeft };
+    });
+  };
+
   timerStart = () => {
     this.setState({ timerStarted: true });
-    const timer = setInterval(() => {
-      this.setState(({ secondsLeft, minutesLeft }) => {
-        const newSecondsLeft = secondsLeft - 1;
-        if (!newSecondsLeft && !minutesLeft) {
-          clearInterval(timer);
-        } else if (newSecondsLeft === -1 && minutesLeft > 0) {
-          const newMinutesLeft = minutesLeft - 1;
-          return {
-            secondsLeft: 59,
-            minutesLeft: newMinutesLeft,
-          };
-        }
-        return { secondsLeft: newSecondsLeft };
-      });
-    }, 1000);
+    const timer = setInterval(() => this.changeTimerValue(timer), 1000);
     this.setState({ timer });
   };
 
