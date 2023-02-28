@@ -23,6 +23,7 @@ export default function Task({
   const hiddenEditTaskForm = () => {
     setEdit(false);
   };
+  const timer = minutes || seconds ? <Timer seconds={seconds} minutes={minutes} /> : null;
 
   if (edit) {
     return (
@@ -39,7 +40,7 @@ export default function Task({
       <input className="toggle" type="checkbox" onClick={onCompleted} />
       <label>
         <span className="description">{description}</span>
-        <Timer seconds={seconds} minutes={minutes} />
+        {timer}
         <span className="created">{formatDistanceToNow(timeStamp, { addSuffix: true })}</span>
       </label>
       <button type="button" className="icon icon-edit" onClick={onEditedClick} />

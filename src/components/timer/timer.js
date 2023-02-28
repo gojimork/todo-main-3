@@ -1,6 +1,6 @@
-const { useState } = require('react');
+import { useState } from 'react';
 
-const Timer = ({ minutes, seconds }) => {
+function Timer({ minutes, seconds }) {
   const secondsFromProps = minutes * 60 + seconds;
 
   const [secondsLeft, setSecondsLeft] = useState(secondsFromProps);
@@ -54,6 +54,6 @@ const Timer = ({ minutes, seconds }) => {
       </span>
     </div>
   );
-};
+}
 
 export default Timer;
