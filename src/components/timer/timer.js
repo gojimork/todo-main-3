@@ -5,10 +5,10 @@ const Timer = ({ minutes, seconds }) => {
 
   const [secondsLeft, setSecondsLeft] = useState(secondsFromProps);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [timerId, setTimerId] = useState(null);
 
   let secondsDeclaration = secondsFromProps;
   let dateStartTimer = null;
-  let timerId = null;
 
   const timerFinish = () => {
     setTimerStarted(false);
@@ -28,7 +28,8 @@ const Timer = ({ minutes, seconds }) => {
     if (secondsLeft === 0) return;
     dateStartTimer = Date.now();
     setTimerStarted(true);
-    timerId = setInterval(() => changeTimerValue(), 1000);
+    const timer = setInterval(() => changeTimerValue(), 1000);
+    setTimerId(timer);
   };
 
   const timerPause = () => {
