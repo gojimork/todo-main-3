@@ -1,44 +1,36 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-export default class EditTaskForm extends Component {
-  static defaultProps = {
-    description: '',
-    onEditingSubmit: () => {},
-    id: '',
-    hiddenEditTaskForm: () => {},
+export default function EditTaskForm({ description, onEditingSubmit, hiddenEditTaskForm, id }) {
+  const [newDescription, setNewDescription] = useState(description);
+
+  const onEditChange = (e) => {
+    setNewDescription(e.target.value);
   };
 
-  static propTypes = {
-    id: PropTypes.string,
-    description: PropTypes.string,
-    hiddenEditTaskForm: PropTypes.func,
-    onEditingSubmit: PropTypes.func,
-  };
-
-  state = {
-    description: this.props.description,
-  };
-
-  onEditChange = (e) => {
-    this.setState({
-      description: e.target.value,
-    });
-  };
-
-  onSubmit = (e) => {
-    const { onEditingSubmit, hiddenEditTaskForm, id } = this.props;
-    const { description } = this.state;
+  const onSubmit = (e) => {
     e.preventDefault();
-    onEditingSubmit(id, description);
+    onEditingSubmit(id, newDescription);
     hiddenEditTaskForm();
   };
 
-  render() {
-    return (
-      <form className="editing" onSubmit={this.onSubmit}>
-        <input type="text" className="edit" defaultValue={this.props.description} onChange={this.onEditChange} />
-      </form>
-    );
-  }
+  return (
+    <form className="editing" onSubmit={onSubmit}>
+      <input type="text" className="edit" defaultValue={description} onChange={onEditChange} />
+    </form>
+  );
 }
+
+EditTaskForm.defaultProps = {
+  description: '',
+  onEditingSubmit: () => {},
+  id: '',
+  hiddenEditTaskForm: () => {},
+};
+
+EditTaskForm.propTypes = {
+  id: PropTypes.string,
+  description: PropTypes.string,
+  hiddenEditTaskForm: PropTypes.func,
+  onEditingSubmit: PropTypes.func,
+};
