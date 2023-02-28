@@ -12,8 +12,8 @@ export default class App extends Component {
         id: uuidv4(),
         completed: false,
         description: 't',
-        minutes: 3,
-        seconds: 10,
+        minutes: 0,
+        seconds: 2,
         timeStamp: Date.parse('June 16 1993'),
       },
       // {

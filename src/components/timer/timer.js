@@ -1,60 +1,58 @@
-import { Component } from 'react';
+const { useState } = require('react');
 
-export default class Timer extends Component {
-  secondsFromProps = this.props.minutes * 60 + this.props.seconds;
+const Timer = ({ minutes, seconds }) => {
+  const secondsFromProps = minutes * 60 + seconds;
 
-  state = {
-    secondsDeclaration: this.secondsFromProps,
-    secondsLeft: this.secondsFromProps,
-    dateStartTimer: null,
-    timer: null,
-    timerStarted: false,
+  const [secondsLeft, setSecondsLeft] = useState(secondsFromProps);
+  const [timerStarted, setTimerStarted] = useState(false);
+
+  let secondsDeclaration = secondsFromProps;
+  let dateStartTimer = null;
+  let timerId = null;
+
+  const timerFinish = () => {
+    setTimerStarted(false);
+    secondsDeclaration = 0;
+    clearInterval(timerId);
   };
 
-  changeTimerValue = () => {
-    this.setState(({ dateStartTimer, secondsDeclaration }) => {
-      const secondsSinceStart = Math.floor((Date.now() - dateStartTimer) / 1000);
-      const newSecondsLeft = secondsDeclaration - secondsSinceStart;
-      if (newSecondsLeft === 0) this.timerFinish();
-      return { secondsLeft: newSecondsLeft };
-    });
+  const changeTimerValue = () => {
+    const dateNow = Date.now();
+    const secondsSinceStart = Math.floor((dateNow - dateStartTimer) / 1000);
+    const newSecondsLeft = secondsDeclaration - secondsSinceStart;
+    if (newSecondsLeft === 0) timerFinish();
+    setSecondsLeft(newSecondsLeft);
   };
 
-  timerStart = () => {
-    if (this.state.secondsLeft === 0) return;
-    const startTime = Date.now();
-    this.setState({ dateStartTimer: startTime, timerStarted: true });
-    const timer = setInterval(() => this.changeTimerValue(), 1000);
-    this.setState({ timer });
+  const timerStart = () => {
+    if (secondsLeft === 0) return;
+    dateStartTimer = Date.now();
+    setTimerStarted(true);
+    timerId = setInterval(() => changeTimerValue(), 1000);
   };
 
-  timerPause = () => {
-    const { timer, secondsLeft } = this.state;
-    this.setState({ timerStarted: false, secondsDeclaration: secondsLeft });
-    clearInterval(timer);
+  const timerPause = () => {
+    setTimerStarted(false);
+    secondsDeclaration = secondsLeft;
+    clearInterval(timerId);
   };
 
-  timerFinish = () => {
-    this.setState({ timerStarted: false, secondsDeclaration: 0 });
-    clearInterval(this.state.timer);
-  };
+  const play = <button type="button" className="icon-play" onClick={timerStart} />;
+  const pause = <button type="button" className="icon-pause" onClick={timerPause} />;
+  const button = timerStarted ? pause : play;
+  const displayMinutes = Math.floor(secondsLeft / 60)
+    .toString()
+    .padStart(2, '0');
+  const displaySeconds = (secondsLeft % 60).toString().padStart(2, '0');
 
-  render() {
-    const { timerStarted, secondsLeft } = this.state;
-    const play = <button type="button" className="icon-play" onClick={this.timerStart} />;
-    const pause = <button type="button" className="icon-pause" onClick={this.timerPause} />;
-    const button = timerStarted ? pause : play;
-    const minutes = Math.floor(secondsLeft / 60)
-      .toString()
-      .padStart(2, '0');
-    const seconds = (secondsLeft % 60).toString().padStart(2, '0');
-    return (
-      <div>
-        {button}
-        <span>
-          {minutes}:{seconds}
-        </span>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {button}
+      <span>
+        {displayMinutes}:{displaySeconds}
+      </span>
+    </div>
+  );
+};
+
+export default Timer;
