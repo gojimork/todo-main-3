@@ -37,13 +37,13 @@ const Timer = ({ minutes, seconds }) => {
     clearInterval(timerId);
   };
 
+  const formatTime = (time) => (time < 10 ? `0${time}` : time);
+
   const play = <button type="button" className="icon-play" onClick={timerStart} />;
   const pause = <button type="button" className="icon-pause" onClick={timerPause} />;
   const button = timerStarted ? pause : play;
-  const displayMinutes = Math.floor(secondsLeft / 60)
-    .toString()
-    .padStart(2, '0');
-  const displaySeconds = (secondsLeft % 60).toString().padStart(2, '0');
+  const displayMinutes = formatTime(Math.floor(secondsLeft / 60));
+  const displaySeconds = formatTime(secondsLeft % 60);
 
   return (
     <div>
