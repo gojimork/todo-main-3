@@ -9,11 +9,12 @@ function Timer({ minutes, seconds }) {
 
   let secondsDeclaration = secondsFromProps;
   let dateStartTimer = null;
+  let timerIdForFinish = null;
 
   const timerFinish = () => {
     setTimerStarted(false);
     secondsDeclaration = 0;
-    clearInterval(timerId);
+    clearInterval(timerIdForFinish);
   };
 
   const changeTimerValue = () => {
@@ -30,6 +31,7 @@ function Timer({ minutes, seconds }) {
     setTimerStarted(true);
     const timer = setInterval(() => changeTimerValue(), 1000);
     setTimerId(timer);
+    timerIdForFinish = timer;
   };
 
   const timerPause = () => {
